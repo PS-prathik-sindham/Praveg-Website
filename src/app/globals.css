@@ -1,26 +1,523 @@
 @import "tailwindcss";
 
+@theme {
+  --font-plex: var(--font-plex-src), "Segoe UI", sans-serif;
+  --font-poppins: var(--font-poppins-src), sans-serif;
+  --font-grotesk: var(--font-grotesk-src), sans-serif;
+  --font-mono: var(--font-plex-mono-src), monospace;
+  --font-inter: var(--font-inter-src), sans-serif;
+  --font-manrope: var(--font-manrope-src), sans-serif;
+
+  --color-brand: #246bfd;
+  --color-brand-700: #1b43fe;
+  --color-ink: #02091c;
+  --color-ink-2: #090d17;
+  --color-muted: #6b7585;
+  --color-surface: #fafafa;
+  --color-surface-blue: #f6f9ff;
+  --color-dark: #090d17;
+  --color-darker: #05080f;
+  --color-banner: #010510;
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #02091c;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  border-color: #e6e8ee;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-plex);
+}
+
+.container-px {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* MaskedTextReveal — words rise from behind a clip mask */
+.mtr-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* room for descenders so they aren't clipped by the mask */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+.mtr-inner {
+  display: inline-block;
+  transform: translateY(115%);
+  will-change: transform;
+  animation-name: mtr-rise;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+@keyframes mtr-rise {
+  from {
+    transform: translateY(115%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* fade variant — premium reveal for body text */
+.mtr-word-fade {
+  display: inline-block;
+}
+
+.mtr-inner-fade {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.45em);
+  filter: blur(6px);
+  will-change: opacity, transform, filter;
+  animation-name: mtr-fade-rise;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+@keyframes mtr-fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.45em);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mtr-inner,
+  .mtr-inner-fade {
+    transform: none;
+    filter: none;
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* Animated flow paths — light pulses travelling along the diagram's connectors */
+.flow-base-layer {
+  position: relative;
+  z-index: 2;
+}
+/* hide the raster cube baked into the exported SVG — replaced by coded .cube-chip */
+.flow-base-layer svg image {
+  display: none;
+}
+.cube-chip {
+  position: absolute;
+  left: 48.4%;
+  top: 51.5%;
+  transform: translate(-50%, -50%);
+  width: 21%;
+  aspect-ratio: 1 / 1;
+  z-index: 5;
+}
+.cube-chip img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.flow-lines-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+.flow-base svg,
+.flow-base,
+.flow-lines {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Replicates Framer "Animated Flow Paths" ShimmerPath:
+   a single shimmer segment (dasharray 20/100, pathLength 100) travels each line
+   from offset 140 -> 20, synchronised across all lines, fading in/out at the
+   ends, with a loop-delay pause. Direction normalised left -> right. */
+.flow-pulses path {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 20 100;
+  /* 2.5s travel + 0.8s loop delay = 3.3s cycle; travel ends at 2.5/3.3 = 75.76% */
+  animation:
+    shimmer-move 3.3s cubic-bezier(0.42, 0, 0.58, 1) infinite,
+    shimmer-fade 3.3s linear infinite;
+}
+
+.flow-pulses path.rev {
+  animation-name: shimmer-move-rev, shimmer-fade;
+}
+
+@keyframes shimmer-move {
+  0% {
+    stroke-dashoffset: 140;
+  }
+  75.76% {
+    stroke-dashoffset: 20;
+  }
+  100% {
+    stroke-dashoffset: 20;
+  }
+}
+
+@keyframes shimmer-move-rev {
+  0% {
+    stroke-dashoffset: 20;
+  }
+  75.76% {
+    stroke-dashoffset: 140;
+  }
+  100% {
+    stroke-dashoffset: 140;
+  }
+}
+
+@keyframes shimmer-fade {
+  0% {
+    opacity: 0;
+  }
+  0.76% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  75.76% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-pulses {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-pulses path {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Generic fade-up reveal for whole elements (set animation-delay inline) */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(16px);
+  animation-name: reveal-up-anim;
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+@keyframes reveal-up-anim {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* Color-changing CTA — a continuously flowing gradient of Praveg blues */
+.btn-color-shift {
+  background-image: linear-gradient(
+    90deg,
+    #246bfd,
+    #1b43fe,
+    #4f8bff,
+    #2f6bff,
+    #246bfd
+  );
+  background-size: 300% 100%;
+  background-position: 0% 50%;
+  animation: btn-color-flow 5s linear infinite;
+  box-shadow: 0 6px 18px -8px rgba(36, 107, 253, 0.55);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.btn-color-shift:hover {
+  animation-duration: 2.4s;
+  box-shadow: 0 10px 26px -6px rgba(36, 107, 253, 0.7);
+  transform: translateY(-1px);
+}
+
+@keyframes btn-color-flow {
+  to {
+    background-position: 300% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-color-shift {
+    animation: none;
+    background-position: 0% 50%;
+  }
+}
+
+/* Hide original static chips inside SVG base */
+.flow-base-layer svg g[clip-path*="clip1"] {
+  display: none;
+}
+
+/* Flow Diagram Interactive Chips Overlay */
+.chips-overlay {
+  position: absolute;
+  left: 28.9%;
+  top: 69.13%;
+  width: 39.03%;
+  height: 30.86%;
+  overflow: hidden;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; /* Let clicks pass through to child buttons only */
+}
+
+.chips-carousel-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Smart Animate — Apple-smooth easing; only size/position animate so the
+   text/background colours snap (text is white only while on the blue pill,
+   never washed white mid-transition). */
+.chips-carousel-track.transition-normal {
+  transition: transform 1.2s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.chips-carousel-track.transition-normal .chip-btn {
+  transition:
+    height 1.2s cubic-bezier(0.32, 0.72, 0, 1),
+    padding 1.2s cubic-bezier(0.32, 0.72, 0, 1),
+    font-size 1.2s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 1.2s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.chips-carousel-track.transition-wrap {
+  transition: transform 0.45s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.chips-carousel-track.transition-wrap .chip-btn {
+  transition:
+    height 0.45s cubic-bezier(0.32, 0.72, 0, 1),
+    padding 0.45s cubic-bezier(0.32, 0.72, 0, 1),
+    font-size 0.45s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.45s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Individual Chip Style */
+.chip-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 60px;
+  font-family: var(--font-grotesk), sans-serif;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  pointer-events: auto;
+  box-sizing: border-box;
+  margin: 12px 0; /* half of 24px gap */
+}
+
+/* Active State */
+.chip-btn.active {
+  height: 48px;
+  padding: 12px 20px;
+  font-size: 22px;
+  font-weight: 700; /* Bold */
+  color: #fafafa;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 60%, #1d4ed8 100%);
+  border: 1.5px solid rgba(190, 215, 255, 0.7);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+  z-index: 2;
+  opacity: 1;
+}
+
+/* Adjacent Inactive State (preceding/succeeding in view) */
+.chip-btn.inactive-adjacent {
+  height: 36px;
+  padding: 6px 14px;
+  font-size: 20px;
+  font-weight: 500; /* Medium */
+  color: rgba(16, 16, 16, 0.8);
+  background: transparent;
+  border: 1px solid rgba(19, 97, 217, 0.35);
+  z-index: 1;
+  opacity: 0.7;
+}
+
+/* Far Inactive State (scrolled further out) */
+.chip-btn.inactive-far {
+  height: 32px;
+  padding: 4px 12px;
+  font-size: 18px;
+  font-weight: 300; /* Light */
+  color: rgba(16, 16, 16, 0.6);
+  background: transparent;
+  border: 1px solid rgba(19, 97, 217, 0.25);
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* Hover effects for inactive chips */
+.chip-btn.inactive-adjacent:hover,
+.chip-btn.inactive-far:hover {
+  opacity: 0.95;
+  border-color: rgba(19, 97, 217, 0.6);
+  background-color: rgba(19, 97, 217, 0.05);
+}
+
+/* Left side source chips overlay */
+.source-chips-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.source-pill {
+  position: absolute;
+  left: 0.5%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 3px 16px 3px 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #6db4f7 0%, #2f86ec 100%);
+  box-shadow: 0 5px 14px rgba(28, 90, 190, 0.28);
+  pointer-events: auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.source-pill:hover {
+  transform: translateY(-50%) translateY(-1px);
+  box-shadow: 0 8px 18px rgba(28, 90, 190, 0.36);
+}
+
+.source-pill-badge {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.source-pill-badge img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.source-pill-label {
+  color: #ffffff;
+  font-family: var(--font-grotesk), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Parallax floating for the connector logo badges */
+.float-badge {
+  animation-name: float-badge-y;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+@keyframes float-badge-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-badge { animation: none; }
+}
+
+/* Apple-style notification spring + blur for the "Agent Details" stack */
+.notif-anim {
+  animation: notif-pop 3.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  will-change: transform, opacity, filter;
+}
+@keyframes notif-pop {
+  0%   { transform: translateY(18px) scale(0.92); opacity: 0; filter: blur(10px); }
+  18%  { opacity: 1; }
+  40%  { transform: translateY(0) scale(1); filter: blur(0); }
+  82%  { transform: translateY(0) scale(1); opacity: 1; filter: blur(0); }
+  100% { transform: translateY(8px) scale(0.97); opacity: 0; filter: blur(6px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .notif-anim { animation: none; }
+}
+
+/* Per-pill Apple-style notification spring (centering baked in) */
+.chip-notif {
+  animation: chip-notif-pop 3.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  will-change: transform, opacity, filter;
+}
+@keyframes chip-notif-pop {
+  0%   { transform: translateX(-50%) translateY(22px) scale(0.9);  opacity: 0; filter: blur(10px); }
+  16%  { opacity: 1; }
+  38%  { transform: translateX(-50%) translateY(0) scale(1);       filter: blur(0); }
+  84%  { transform: translateX(-50%) translateY(0) scale(1);       opacity: 1; filter: blur(0); }
+  100% { transform: translateX(-50%) translateY(14px) scale(0.96); opacity: 0; filter: blur(6px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chip-notif { animation: none; transform: translateX(-50%); }
+}
+
+/* Chat-messages style: elements arrive sequentially (spring + fade), looping */
+.chat-msg {
+  animation: chat-msg-in 4.8s cubic-bezier(0.34, 1.4, 0.64, 1) infinite;
+  will-change: transform, opacity;
+}
+@keyframes chat-msg-in {
+  0%   { opacity: 0; transform: translateY(12px) scale(0.98); }
+  9%   { opacity: 1; transform: translateY(0) scale(1); }
+  90%  { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(12px) scale(0.98); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-msg { animation: none; }
 }
