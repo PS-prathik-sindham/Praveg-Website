@@ -54,7 +54,7 @@ export default function AiChatAnswer() {
         )}
       </div>
 
-      {/* result row — slides in once the answer finishes */}
+      {/* result row, slides in once the answer finishes */}
       <div
         className={`flex items-center justify-between rounded-xl border border-[#dbe6fb] bg-[#f8faff] py-1.5 pl-3.5 pr-1.5 transition-all duration-300 ease-out ${
           phase === "done"

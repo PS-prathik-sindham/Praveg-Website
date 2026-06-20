@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useInView } from "@/hooks/useInView";
 import ChatInput, { type InputPhase } from "./ChatInput";
 import PegtopLoader from "./PegtopLoader";
 
 // Self-contained interactive demo (no API): the input auto-types a question, a
 // "Click" tooltip appears on the send button, and clicking it sends the message
-// and streams the assistant reply. Then it auto-fills the next question — looping.
+// and streams the assistant reply. Then it auto-fills the next question, looping.
 const QA: { q: string; a: string; pdf?: string }[] = [
   {
     q: "Are there any unexpected expenses that impacted our financial plan?",
@@ -14,7 +15,7 @@ const QA: { q: string; a: string; pdf?: string }[] = [
   },
   {
     q: "Using this information can you create an pdf report Q4 sales prediction strategy",
-    a: "Done — I've compiled a Q4 FY26 sales-prediction report for the Indian E2W sector. It covers Ather's projected registrations, subsidy-adjusted pricing scenarios, and competitive share against TVS and Ola. The PDF is ready: 14 pages with charts and source citations.",
+    a: "Done, I've compiled a Q4 FY26 sales-prediction report for the Indian E2W sector. It covers Ather's projected registrations, subsidy-adjusted pricing scenarios, and competitive share against TVS and Ola. The PDF is ready: 14 pages with charts and source citations.",
     pdf: "Q4 Sales Prediction",
   },
   {
@@ -37,6 +38,7 @@ export default function AgentChat() {
   const [phase, setPhase] = useState<InputPhase>("typing");
   const [qIndex, setQIndex] = useState(1);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { ref: viewRef, inView } = useInView<HTMLDivElement>();
 
   // keep the thread scrolled to the latest content
   useEffect(() => {
@@ -44,8 +46,9 @@ export default function AgentChat() {
     if (el) el.scrollTop = el.scrollHeight;
   }, [messages, input]);
 
-  // auto-type the next question into the input
+  // auto-type the next question into the input — only once in view
   useEffect(() => {
+    if (!inView) return;
     if (phase !== "typing") return;
     const q = QA[qIndex].q;
     if (input.length < q.length) {
@@ -54,7 +57,7 @@ export default function AgentChat() {
     }
     const t = setTimeout(() => setPhase("ready"), 250);
     return () => clearTimeout(t);
-  }, [phase, input, qIndex]);
+  }, [phase, input, qIndex, inView]);
 
   // stream the assistant reply once a message has been sent
   useEffect(() => {
@@ -110,7 +113,7 @@ export default function AgentChat() {
   };
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
+    <div ref={viewRef} className="flex min-h-0 flex-1 flex-col">
       {/* conversation thread */}
       <div ref={scrollRef} className="flex-1 space-y-6 overflow-y-auto px-6 py-7 sm:px-8">
         {messages.map((m, i) =>

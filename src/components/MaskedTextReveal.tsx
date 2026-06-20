@@ -23,7 +23,7 @@ type Props = {
 };
 
 /**
- * MaskedTextReveal — reveals text word-by-word with a staggered delay.
+ * MaskedTextReveal, reveals text word-by-word with a staggered delay.
  * - variant "mask": each word rises up from behind a clipping mask.
  * - variant "fade": each word fades and rises into focus from a soft blur.
  * - trigger "mount": runs on load. "inView": runs when scrolled into view.
