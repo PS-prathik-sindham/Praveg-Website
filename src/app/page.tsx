@@ -162,15 +162,6 @@ function Platform() {
               </div>
             ))}
           </div>
-          <a
-            href="#contact"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand px-5 py-3 font-manrope text-[14px] font-bold text-white transition-colors hover:bg-[#1b5ce0]"
-          >
-            Get a quote
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M5 5h6v6M11 5L5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
         </div>
 
         <div className="flex flex-col">
