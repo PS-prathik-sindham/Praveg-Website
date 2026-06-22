@@ -5,15 +5,15 @@ import { useState } from "react";
 const faqs = [
   {
     q: "Do we have to manage any infrastructure?",
-    a: "No. Praveg.ai is a fully managed agentic platform — compute, orchestration, scaling and uptime are ours. You connect your data sources and start building agents; there is nothing to provision or operate.",
+    a: "No. Praveg.ai is a fully managed agentic platform, compute, orchestration, scaling and uptime are ours. You connect your data sources and start building agents; there is nothing to provision or operate.",
   },
   {
     q: "How does it connect to our data?",
-    a: "Managed connectors and native MCP support reach your databases, warehouses, SaaS apps and files. You read in place, with the permissions you set — nothing to provision, nothing to maintain.",
+    a: "Managed connectors and native MCP support reach your databases, warehouses, SaaS apps and files. You read in place, with the permissions you set, nothing to provision, nothing to maintain.",
   },
   {
     q: "What can the agents actually do?",
-    a: "Agents retrieve, run SQL, execute code, build charts and call tools — composed visually or in code into workflows, from a quick Q&A bot to a full automated data-ops pipeline.",
+    a: "Agents retrieve, run SQL, execute code, build charts and call tools, composed visually or in code into workflows, from a quick Q&A bot to a full automated data-ops pipeline.",
   },
   {
     q: "How do you keep answers trustworthy?",
@@ -25,16 +25,16 @@ const faqs = [
   },
   {
     q: "Where does the Data Marketplace fit in?",
-    a: "The Data Marketplace offers specialised, reviewed datasets you can connect in one click and plug straight into your agents and workflows — governed like everything else on the platform.",
+    a: "The Data Marketplace offers specialised, reviewed datasets you can connect in one click and plug straight into your agents and workflows, governed like everything else on the platform.",
   },
 ];
 
-export default function Faq() {
+export default function Faq({ items = faqs }: { items?: { q: string; a: string }[] }) {
   const [open, setOpen] = useState(0);
 
   return (
     <div className="flex flex-col">
-      {faqs.map((f, i) => {
+      {items.map((f, i) => {
         const isOpen = open === i;
         return (
           <div key={f.q} className="border-t border-[#e6e8ee] last:border-b">

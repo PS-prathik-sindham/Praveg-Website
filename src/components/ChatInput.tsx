@@ -1,6 +1,6 @@
 "use client";
 
-// Figma "Main chat input" (node 207-528) — controlled by the parent AgentChat.
+// Figma "Main chat input" (node 207-528), controlled by the parent AgentChat.
 //   phase "responding"/"" → resting box, gray placeholder, muted button, no glow
 //   phase "typing"        → blue focus glow, value types out with a caret
 //   phase "ready"         → full value shown, button live + "Click" tooltip
@@ -38,9 +38,17 @@ export default function ChatInput({
       <div className="flex-1 pb-[30px] text-[14px] leading-5">
         {value ? (
           <span className="text-[#030712]">
-            {value}
-            {phase === "typing" && (
-              <span className="ml-px inline-block h-[14px] w-[2px] translate-y-[2px] animate-pulse bg-[#246bfd] align-middle" />
+            {phase === "typing" ? (
+              <>
+                {value.slice(0, -1)}
+                {/* key on length → the latest char remounts and eases in each tick */}
+                <span key={value.length} className="type-char">
+                  {value.slice(-1)}
+                </span>
+                <span className="ml-px inline-block h-[14px] w-[2px] translate-y-[2px] animate-pulse bg-[#246bfd] align-middle" />
+              </>
+            ) : (
+              value
             )}
           </span>
         ) : (
@@ -51,7 +59,7 @@ export default function ChatInput({
       {/* send button (bottom-right) */}
       <div className="flex justify-end">
         <div className="relative">
-          {/* "Click" tooltip — shown once the question is filled and ready */}
+          {/* "Click" tooltip, shown once the question is filled and ready */}
           {canSend && (
             <div className="absolute -top-10 right-0 z-10 animate-bounce">
               <span className="block rounded-md bg-[#030712] px-2.5 py-1 text-[12px] font-medium text-white shadow-[0_6px_16px_-6px_rgba(20,40,90,0.5)]">

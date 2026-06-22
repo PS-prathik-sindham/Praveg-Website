@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Logo from "@/components/Logo";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import Faq from "@/components/Faq";
 import MaskedTextReveal from "@/components/MaskedTextReveal";
 import FlowDiagram from "@/components/FlowDiagram";
@@ -122,7 +122,7 @@ function Hero() {
             variant="fade"
             segments={[
               {
-                text: "Connect private or public data sources. Set up a workflow once, and let agent swarms handle every step: pulling data, making judgement calls, sending emails, and syncing results back — all without leaving Praveg.",
+                text: "Connect private or public data sources. Set up a workflow once, and let agent swarms handle every step: pulling data, making judgement calls, sending emails, and syncing results back, all without leaving Praveg.",
               },
             ]}
             delay={1}
@@ -130,23 +130,6 @@ function Hero() {
             duration={0.6}
           />
         </p>
-
-        <form
-          className="reveal-up mt-8 flex items-center gap-2 rounded-full border border-[#e6e8ee] bg-white p-1.5 shadow-sm"
-          style={{ animationDelay: "1.6s" }}
-        >
-          <input
-            type="email"
-            placeholder="Enter your work email"
-            className="w-[200px] bg-transparent px-4 text-[14px] text-[#101010] outline-none placeholder:text-[#9aa1ad]"
-          />
-          <button
-            type="submit"
-            className="btn-color-shift flex items-center gap-2 rounded-full px-5 py-2.5 text-[15px] font-medium text-white"
-          >
-            Get a Demo <Arrow />
-          </button>
-        </form>
 
         <div
           className="reveal-up mt-14 w-full max-w-[1120px]"
@@ -179,15 +162,6 @@ function Platform() {
               </div>
             ))}
           </div>
-          <a
-            href="#contact"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand px-5 py-3 font-manrope text-[14px] font-bold text-white transition-colors hover:bg-[#1b5ce0]"
-          >
-            Get a quote
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M5 5h6v6M11 5L5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
         </div>
 
         <div className="flex flex-col">
@@ -197,14 +171,14 @@ function Platform() {
           <div className="space-y-4">
             <div className="bg-[#f5f6f8] p-7 text-[18px] leading-7 text-ink">
               Most teams spend months wiring up infrastructure before they get a
-              single answer. Praveg.ai is the agentic platform — connectors, agents,
-              workflows and governance — delivered as a service, so you start with
+              single answer. Praveg.ai is the agentic platform, connectors, agents,
+              workflows and governance, delivered as a service, so you start with
               the problem, not the pipes.
             </div>
             <div className="bg-[#f5f6f8] p-7 text-[18px] leading-7 text-ink">
               You bring your data sources and your questions. We bring the connectors
               that reach them, the agents that reason over them, the workflows that
-              automate the work, and the governance that proves it — running as a
+              automate the work, and the governance that proves it, running as a
               managed service, not a stack to babysit.
             </div>
           </div>
@@ -344,7 +318,7 @@ function Connect() {
         <p className="mt-5 max-w-[620px] text-[16px] font-light leading-[1.35] text-[#202020]">
           Managed connectors and native MCP support pull your databases, warehouses,
           SaaS apps and files into one governed fabric. Read in place, with the
-          permissions you set — nothing to provision, nothing to maintain.
+          permissions you set, nothing to provision, nothing to maintain.
         </p>
         <ConnectorsGrid />
       </div>
@@ -424,11 +398,11 @@ function Build() {
     },
     {
       t: "Workflows that run themselves",
-      d: "Schedule them, trigger them on events, or hand them to agents — they run start to finish without a babysitter.",
+      d: "Schedule them, trigger them on events, or hand them to agents, they run start to finish without a babysitter.",
     },
     {
       t: "Grounded in your taxonomy",
-      d: "Agents answer against your schema and definitions, not the open web — so a metric means the same thing every time.",
+      d: "Agents answer against your schema and definitions, not the open web, so a metric means the same thing every time.",
     },
     {
       t: "Guardrails on every action",
@@ -567,7 +541,7 @@ function AgentChatPanel() {
     // eslint-disable-next-line @next/next/no-img-element
     <img src={`/assets/agenticons/${name}.svg`} alt="" className={cls} />
   );
-  // node 207-848 — each icon SVG is the full 40×40 tile (active = blue #EEF5FF, rest #F8FAFF)
+  // node 207-848, each icon SVG is the full 40×40 tile (active = blue #EEF5FF, rest #F8FAFF)
   const sidebarTop = ["s0", "s1", "s2", "s3", "s4", "s5", "s6", "s7"];
   const sidebarBottom = ["sb1", "sb2"];
   return (
@@ -630,7 +604,7 @@ function Interact() {
         </h2>
         <p className="mt-5 max-w-[680px] text-[16px] font-light leading-[1.35] text-[#202020]">
           Pick a question. Watch an agent reach your connected sources, reason over
-          governed data, and hand back an answer — with the chart and the citation.
+          governed data, and hand back an answer, with the chart and the citation.
         </p>
 
         <AgentChatPanel />
@@ -645,14 +619,14 @@ function Suite() {
       tag: "MANAGED DATA OPS",
       icon: "doc",
       t: "Data Operations as a Service",
-      d: "Turn raw documents — annual reports, filings, spreadsheets — into structured, quality-grade datasets. Agents extract; people verify every fact that matters.",
+      d: "Turn raw documents, annual reports, filings, spreadsheets, into structured, quality-grade datasets. Agents extract; people verify every fact that matters.",
       bullets: ["Agentic extraction", "Human-in-the-loop review", "Full provenance & audit"],
     },
     {
       tag: "REVIEWED DATASETS",
       icon: "grid",
       t: "Data Marketplace",
-      d: "Discover and connect specialised, reviewed datasets — published, governed and ready to plug straight into your agents and workflows.",
+      d: "Discover and connect specialised, reviewed datasets, published, governed and ready to plug straight into your agents and workflows.",
       bullets: ["Curated & reviewed", "Connect in one click", "Governed distribution"],
     },
   ];
@@ -664,9 +638,8 @@ function Suite() {
           One platform. A growing suite of products.
         </h2>
         <p className="mt-5 max-w-[660px] text-[16px] font-light leading-[1.35] text-[#202020]">
-          Praveg.ai is the foundation. On top of it sit focused products — managed
-          data operations, a marketplace of reviewed datasets, and more on the way —
-          all sharing the same connectors, agents and governance.
+          Praveg.ai is the foundation. On top of it sit focused products, managed
+          data operations, a marketplace of reviewed datasets, and more on the way, all sharing the same connectors, agents and governance.
         </p>
         <div className="mt-14 grid w-full max-w-[760px] grid-cols-1 gap-6 text-left md:grid-cols-2">
           {products.map((p) => (
@@ -700,11 +673,11 @@ function Suite() {
 
 function Why() {
   const cards = [
-    { icon: "bolt", t: "No infrastructure to run", d: "We take the platform off your plate — compute, orchestration, scaling and uptime. You point it at your data and start building." },
-    { icon: "link", t: "Connect to anything", d: "Managed connectors and native MCP support reach databases, warehouses, SaaS apps and files — without brittle pipelines to maintain." },
-    { icon: "sparkles", t: "Agents built your way", d: "Compose agents and chain them into workflows — visually or in code — from a quick Q&A bot to a full automated data-ops pipeline." },
+    { icon: "bolt", t: "No infrastructure to run", d: "We take the platform off your plate, compute, orchestration, scaling and uptime. You point it at your data and start building." },
+    { icon: "link", t: "Connect to anything", d: "Managed connectors and native MCP support reach databases, warehouses, SaaS apps and files, without brittle pipelines to maintain." },
+    { icon: "sparkles", t: "Agents built your way", d: "Compose agents and chain them into workflows, visually or in code, from a quick Q&A bot to a full automated data-ops pipeline." },
     { icon: "check", t: "Humans where it counts", d: "Confidence-driven review and approval gates keep a person on every decision that matters, so output is something you can defend." },
-    { icon: "shield", t: "Governed by default", d: "SOC 2 controls, RBAC, SSO and your choice of data residency — with provenance and an immutable audit trail on every fact." },
+    { icon: "shield", t: "Governed by default", d: "SOC 2 controls, RBAC, SSO and your choice of data residency, with provenance and an immutable audit trail on every fact." },
     { icon: "grid", t: "A marketplace of trusted data", d: "Tap specialised, reviewed datasets from the Data Marketplace and plug them straight into your agents and workflows." },
   ];
   return (
@@ -739,7 +712,7 @@ function Security() {
   const cards = [
     { t: "Provenance on every fact", d: "Every value links to its source row, document, page and the definition behind it." },
     { t: "Human approval gates", d: "Nothing critical publishes without passing the review and sign-off you configure." },
-    { t: "Scoped agent permissions", d: "Agents only reach the data and tools you grant — least privilege, enforced." },
+    { t: "Scoped agent permissions", d: "Agents only reach the data and tools you grant, least privilege, enforced." },
     { t: "Immutable audit log", d: "Every query, edit, approval and publish event is recorded and attributable." },
     { t: "Your data, your region", d: "Choice of data residency, or deploy the platform inside your own VPC." },
     { t: "SOC 2 · RBAC · SSO", d: "Enterprise access controls and single sign-on across the whole platform." },
@@ -757,7 +730,7 @@ function Security() {
           <p className="mt-5 max-w-[440px] text-[17px] leading-7 text-white/75">
             Autonomy without control is a liability. Every agent runs inside
             least-privilege permissions, every answer is traceable to source, and
-            every action is logged — so the platform stands up to your risk team, an
+            every action is logged, so the platform stands up to your risk team, an
             auditor and a regulator.
           </p>
           <div className="mt-7 flex flex-wrap gap-2.5">
@@ -838,60 +811,6 @@ function FaqSection() {
         <Faq />
       </div>
     </section>
-  );
-}
-
-function Footer() {
-  const cols = [
-    { title: "Platform", links: ["The agentic platform", "How it works", "Connectors & MCPs", "Security & governance"] },
-    { title: "The suite", links: ["Data Operations", "Data Marketplace", "Browse datasets", "Book a demo"] },
-    { title: "Company", links: ["Why Praveg.ai", "Use cases", "Pricing", "Get started"] },
-  ];
-  return (
-    <footer className="bg-darker py-16 text-white">
-      <div className="container-px">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div>
-            <div className="flex items-center gap-2">
-              <Logo size={35} />
-              <span className="font-poppins text-[28px] font-medium">Praveg.ai</span>
-            </div>
-            <p className="mt-5 max-w-[340px] text-[13.5px] leading-6 text-white/55">
-              The agentic data platform. Connect any source, build agents and
-              workflows, and get answers you can trust — without the infrastructure.
-            </p>
-            <span className="mt-7 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-[11px] font-bold tracking-wide text-white/80">
-              <span className="h-2 w-2 rounded-full bg-[#27c281]" />
-              SOC 2 · your region
-            </span>
-          </div>
-          {cols.map((col) => (
-            <div key={col.title}>
-              <p className="text-[11px] font-medium uppercase tracking-widest text-white/40">
-                {col.title}
-              </p>
-              <ul className="mt-5 space-y-3.5">
-                {col.links.map((l) => (
-                  <li key={l}>
-                    <a href="#" className="text-[14px] text-white/75 transition-colors hover:text-white">
-                      {l}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center">
-          <p className="text-[12.5px] text-white/45">
-            © 2026 Praveg.ai · The agentic data platform
-          </p>
-          <p className="text-[11.5px] tracking-widest text-white/35">
-            CONNECT · BUILD · INTERACT
-          </p>
-        </div>
-      </div>
-    </footer>
   );
 }
 

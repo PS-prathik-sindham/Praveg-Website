@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Logo from "./Logo";
 
 // Figma "AI Ready Data" dataset detail overlay
-// (Praveg.ai-application file — nodes 3859-21091 / 3861-21313 / 3864-4850)
+// (Praveg.ai-application file, nodes 3859-21091 / 3861-21313 / 3864-4850)
 const TABS = ["Overview", "Usecase", "Sample data", "Configuration"] as const;
 type Tab = (typeof TABS)[number];
 
@@ -127,8 +127,7 @@ function TabContent({ tab, card }: { tab: Tab; card: OverlayCard }) {
       <div className="space-y-4 text-[14px] leading-[1.6] text-[#3d4757]">
         <p>{card.desc}</p>
         <p>
-          This dataset is produced by our Data Operations pipeline and verified by analysts —
-          delivered in an LLM-friendly, confidence-scored format that&rsquo;s fully governed and
+          This dataset is produced by our Data Operations pipeline and verified by analysts, delivered in an LLM-friendly, confidence-scored format that&rsquo;s fully governed and
           ready to plug straight into your agents, RAG pipelines, and analytics workflows.
         </p>
       </div>
@@ -145,7 +144,7 @@ function TabContent({ tab, card }: { tab: Tab; card: OverlayCard }) {
             <li key={t} className="flex gap-2.5 text-[14px] leading-[1.5] text-[#3d4757]">
               <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-[#4b5563]" />
               <span>
-                <span className="font-semibold text-[#030712]">{t}</span> – {d}
+                <span className="font-semibold text-[#030712]">{t}</span> to {d}
               </span>
             </li>
           ))}
@@ -348,7 +347,7 @@ export default function DatasetOverlay({
                 <p>
                   Built for sectors where precision and compliance are critical, Praveg AI ensures
                   every insight is explainable, traceable, and secure. We help enterprises transform
-                  fragmented data into proprietary intelligence — governed by design and ready to
+                  fragmented data into proprietary intelligence, governed by design and ready to
                   scale.
                 </p>
               </div>

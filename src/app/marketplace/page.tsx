@@ -3,9 +3,9 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
-import Logo from "@/components/Logo";
 import DatasetOverlay from "@/components/DatasetOverlay";
 import ClosingBanner from "@/components/ClosingBanner";
+import Footer from "@/components/Footer";
 
 // ── Marketplace dataset cards (Figma node 147-364) ────────────────────────────
 type Stat = { label: string; value: string };
@@ -27,7 +27,7 @@ const CARDS: Card[] = [
     stats: [
       { label: "Insights", value: "45+ funds" },
       { label: "Refresh", value: "Annual" },
-      { label: "Coverage", value: "2021 – 2026" },
+      { label: "Coverage", value: "2021 to 2026" },
       { label: "Focus", value: "Long-term + Short-term" },
     ],
   },
@@ -39,7 +39,7 @@ const CARDS: Card[] = [
     stats: [
       { label: "Data", value: "200+ managers" },
       { label: "Review", value: "Semiannual" },
-      { label: "Coverage", value: "2019 – 2026" },
+      { label: "Coverage", value: "2019 to 2026" },
       { label: "Types", value: "Active + Passive" },
     ],
   },
@@ -51,7 +51,7 @@ const CARDS: Card[] = [
     stats: [
       { label: "Reports", value: "100+ firms" },
       { label: "Update", value: "Quarterly" },
-      { label: "Coverage", value: "2022 – 2027" },
+      { label: "Coverage", value: "2022 to 2027" },
       { label: "Aspects", value: "Early-stage + Late-stage" },
     ],
   },
@@ -63,7 +63,7 @@ const CARDS: Card[] = [
     stats: [
       { label: "Analysis", value: "50+ funds" },
       { label: "Refresh", value: "Yearly" },
-      { label: "Coverage", value: "2020 – 2025" },
+      { label: "Coverage", value: "2020 to 2025" },
       { label: "Metrics", value: "Nominal + Real" },
     ],
   },
@@ -75,7 +75,7 @@ const CARDS: Card[] = [
     stats: [
       { label: "Surveys", value: "30+ providers" },
       { label: "Update", value: "Biannual" },
-      { label: "Coverage", value: "2021 – 2025" },
+      { label: "Coverage", value: "2021 to 2025" },
       { label: "Segments", value: "Public + Private" },
     ],
   },
@@ -83,11 +83,11 @@ const CARDS: Card[] = [
     category: "Reinsurance",
     badge: "POPULAR",
     title: "Lloyd's Syndicate Financials",
-    desc: "Normalized annual report & accounts for Lloyd's syndicates — profit & loss, balance sheet, technical provisions and solvency. Every figure traced to its source page.",
+    desc: "Normalized annual report & accounts for Lloyd's syndicates, profit & loss, balance sheet, technical provisions and solvency. Every figure traced to its source page.",
     stats: [
       { label: "Records", value: "40+ carriers" },
       { label: "Refresh", value: "Quarterly" },
-      { label: "Coverage", value: "2019 – 2026" },
+      { label: "Coverage", value: "2019 to 2026" },
       { label: "Fields", value: "Statutory + GAAP" },
     ],
   },
@@ -95,7 +95,7 @@ const CARDS: Card[] = [
 
 const TABS = ["Recommended", "Popular", "Newly added"];
 
-// Each category keeps its own colour — simple, soft/muted tones (used on the
+// Each category keeps its own colour, simple, soft/muted tones (used on the
 // card label and as a filter)
 const CATEGORY_COLORS: Record<string, string> = {
   Sustainability: "#4a9d78",
@@ -191,7 +191,7 @@ const ACCESS: Access[] = [
     name: "Web Download",
     sub: "Point and click",
     badge: "Point & click",
-    desc: "Browse, filter and export any dataset to Excel or CSV straight from your workspace — no engineering required.",
+    desc: "Browse, filter and export any dataset to Excel or CSV straight from your workspace, no engineering required.",
     file: "lloyds_syndicate_financials.xlsx",
     meta: "1,440 rows · 122 columns · 2.4 MB",
     checks: [
@@ -205,7 +205,7 @@ const ACCESS: Access[] = [
     name: "Rest API",
     sub: "Programmatic",
     badge: "Programmatic",
-    desc: "Query any dataset over a versioned REST endpoint — authenticate, filter and paginate straight from your services.",
+    desc: "Query any dataset over a versioned REST endpoint, authenticate, filter and paginate straight from your services.",
     file: "GET /v1/datasets/lloyds_syndicate",
     meta: "JSON · cursor paging · 10k rows / page",
     checks: [
@@ -219,7 +219,7 @@ const ACCESS: Access[] = [
     name: "Warehouse Share",
     sub: "Zero copy",
     badge: "Zero copy",
-    desc: "Mount any dataset directly into your warehouse with zero-copy shares — no pipelines, no duplication.",
+    desc: "Mount any dataset directly into your warehouse with zero-copy shares, no pipelines, no duplication.",
     file: "SNOWFLAKE_SHARE :: PRAVEG_LLOYDS",
     meta: "Live share · governed · 0-copy",
     checks: [
@@ -380,7 +380,7 @@ const PLANS: Plan[] = [
     label: "Use the data",
     name: "Professional",
     price: "Per dataset",
-    desc: "Full access to the datasets you need — Excel, API and SDK — with scheduled refreshes and version history.",
+    desc: "Full access to the datasets you need, Excel, API and SDK, with scheduled refreshes and version history.",
     checks: ["Full dataset downloads", "REST API + Python SDK", "Scheduled refresh & history", "Email support"],
     cta: "Get access",
     dark: true,
@@ -513,7 +513,7 @@ export default function MarketplacePage() {
             <span className="text-[#0074e8]">ready to use.</span>
           </h1>
           <p className="mt-5 max-w-[780px] text-[18px] font-medium leading-[1.45] text-[#606060]">
-            Browse the published output of our Data Operations pipeline — structured,
+            Browse the published output of our Data Operations pipeline, structured,
             confidence-scored and human-verified. Access it however you work: download, API,
             warehouse share, SDK and more.
           </p>
@@ -690,75 +690,8 @@ export default function MarketplacePage() {
       {/* ── Closing banner + contact form ── */}
       <ClosingBanner />
 
-      {/* ── Footer ── */}
-      <footer className="bg-darker py-16 text-white border-t border-white/10">
-        <div className="container-px">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-            <div>
-              <div className="flex items-center gap-2">
-                <Logo size={35} />
-                <span className="font-poppins text-[28px] font-medium">Praveg.ai</span>
-              </div>
-              <p className="mt-5 max-w-[340px] text-[13.5px] leading-6 text-white/55 font-light">
-                The agentic data platform. Connect any source, build agents and workflows, and get
-                answers you can trust — without the infrastructure.
-              </p>
-              <span className="mt-7 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-[11px] font-bold tracking-wide text-white/80">
-                <span className="h-2 w-2 rounded-full bg-[#27c281]" />
-                SOC 2 · your region
-              </span>
-            </div>
-
-            <div>
-              <p className="text-[11px] font-medium uppercase tracking-widest text-white/40">Platform</p>
-              <ul className="mt-5 space-y-3.5">
-                {["The agentic platform", "How it works", "Connectors & MCPs", "Security & governance"].map((l) => (
-                  <li key={l}>
-                    <a href={`/#${l.toLowerCase().replace(/\s+/g, "")}`} className="text-[14px] text-white/75 hover:text-white transition-colors font-light">
-                      {l}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <p className="text-[11px] font-medium uppercase tracking-widest text-white/40">The suite</p>
-              <ul className="mt-5 space-y-3.5">
-                {["Data Operations", "Data Marketplace", "Browse datasets", "Book a demo"].map((l) => (
-                  <li key={l}>
-                    <a href={l === "Data Marketplace" ? "/marketplace" : "/#suite"} className="text-[14px] text-white/75 hover:text-white transition-colors font-light">
-                      {l}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <p className="text-[11px] font-medium uppercase tracking-widest text-white/40">Company</p>
-              <ul className="mt-5 space-y-3.5">
-                {["Why Praveg.ai", "Use cases", "Pricing", "Get started"].map((l) => (
-                  <li key={l}>
-                    <a href="/#contact" className="text-[14px] text-white/75 hover:text-white transition-colors font-light">
-                      {l}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center">
-            <p className="text-[12.5px] text-white/45 font-light">
-              © 2026 Praveg.ai · The agentic data platform
-            </p>
-            <p className="text-[11.5px] tracking-widest text-white/35 font-semibold">
-              CONNECT · BUILD · INTERACT
-            </p>
-          </div>
-        </div>
-      </footer>
+      {/* ── Footer (shared) ── */}
+      <Footer />
 
       <DatasetOverlay card={activeCard} onClose={() => setActiveCard(null)} />
     </main>

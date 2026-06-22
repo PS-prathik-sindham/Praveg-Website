@@ -15,7 +15,7 @@ const clamp = (v: number, lo: number, hi: number) =>
   Math.min(hi, Math.max(lo, v));
 
 /**
- * ScrollTextReveal — scroll-scrubbed text reveal.
+ * ScrollTextReveal, scroll-scrubbed text reveal.
  * Words brighten and sharpen one-by-one as the element scrolls up through
  * the viewport; reverses as you scroll back. Mirrors Framer's
  * "text-reveal-scroll-helper" effect. Respects prefers-reduced-motion.

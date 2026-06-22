@@ -1,19 +1,15 @@
 import type { Metadata } from "next";
-import {
-  IBM_Plex_Sans,
-  IBM_Plex_Mono,
-  Poppins,
-  Space_Grotesk,
-  Inter,
-  Manrope,
-} from "next/font/google";
+import { IBM_Plex_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import AgentationToolbar from "@/components/AgentationToolbar";
+import ScrollReveal from "@/components/ScrollReveal";
 
-const plex = IBM_Plex_Sans({
-  variable: "--font-plex-src",
+// Two-font system: Manrope (body / subtext) + Helvetica (headers, system font).
+// Mono is retained only for code/terminal blocks.
+const manrope = Manrope({
+  variable: "--font-manrope-src",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -22,34 +18,10 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500", "700"],
 });
 
-const poppins = Poppins({
-  variable: "--font-poppins-src",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const grotesk = Space_Grotesk({
-  variable: "--font-grotesk-src",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
-});
-
-const inter = Inter({
-  variable: "--font-inter-src",
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
-});
-
-const manrope = Manrope({
-  variable: "--font-manrope-src",
-  subsets: ["latin"],
-  weight: ["700"],
-});
-
 export const metadata: Metadata = {
-  title: "Praveg.ai — The agentic data platform",
+  title: "Praveg.ai, The agentic data platform",
   description:
-    "Connect any source, build agents and workflows, and get answers you can trust — without the infrastructure.",
+    "Connect any source, build agents and workflows, and get answers you can trust, without the infrastructure.",
 };
 
 export default function RootLayout({
@@ -60,10 +32,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plex.variable} ${plexMono.variable} ${poppins.variable} ${grotesk.variable} ${inter.variable} ${manrope.variable} antialiased`}
+      className={`${manrope.variable} ${plexMono.variable} antialiased`}
     >
       <body>
         {children}
+        <ScrollReveal />
         <AgentationToolbar />
       </body>
     </html>

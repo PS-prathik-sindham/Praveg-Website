@@ -1,6 +1,6 @@
 "use client";
 
-// Exact Uiverse "pegtop" loader by andrew-manzyk — verbatim SVG + keyframes,
+// Exact Uiverse "pegtop" loader by andrew-manzyk, verbatim SVG + keyframes,
 // recolored to Praveg primary blue (#246bfd) and scaled down to sit beside the
 // AI avatar while a reply is streaming.
 const D =

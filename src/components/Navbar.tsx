@@ -87,7 +87,7 @@ export default function Navbar() {
                   </span>
                 </a>
                 <a
-                  href="/#suite"
+                  href="/data-operations"
                   onClick={() => setDropdownOpen(false)}
                   className="flex flex-col rounded-lg p-2.5 hover:bg-[#f6f9ff] transition-colors group mt-0.5"
                 >
