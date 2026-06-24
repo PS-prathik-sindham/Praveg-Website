@@ -131,15 +131,15 @@ h6 {
 }
 
 /* Scroll-triggered entrances: stay paused until ScrollReveal adds .in-view
-   when the element scrolls into the viewport. */
-.reveal-up,
-.mtr-inner,
-.mtr-inner-fade {
+   when the element scrolls into the viewport.
+   NOTE: .mtr-inner / .mtr-inner-fade are intentionally excluded — MaskedTextReveal
+   controls its own play state via inline styles (mount = run immediately, inView =
+   paused until intersecting). Pausing them here left mount-triggered headlines
+   (e.g. the hero <h1>) stuck hidden because nothing adds .in-view to them. */
+.reveal-up {
   animation-play-state: paused;
 }
-.reveal-up.in-view,
-.mtr-inner.in-view,
-.mtr-inner-fade.in-view {
+.reveal-up.in-view {
   animation-play-state: running;
 }
 
