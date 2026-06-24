@@ -7,13 +7,13 @@ import { useState } from "react";
 // that writes a row to Excel and emails the sales inbox.
 const FIELDS = [
   { label: "Name", name: "firstName", type: "text", required: true },
-  { label: "Last Name", name: "lastName", type: "text" },
-  { label: "Phone No", name: "phone", type: "tel" },
-  { label: "Role", name: "role", type: "text" },
-  { label: "Company", name: "company", type: "text" },
-  { label: "Country", name: "country", type: "text" },
+  { label: "Last Name", name: "lastName", type: "text", required: false },
+  { label: "Phone No", name: "phone", type: "tel", required: false },
+  { label: "Role", name: "role", type: "text", required: false },
+  { label: "Company", name: "company", type: "text", required: false },
+  { label: "Country", name: "country", type: "text", required: false },
   { label: "Company Email", name: "email", type: "email", required: true },
-  { label: "Subject", name: "subject", type: "text" },
+  { label: "Subject", name: "subject", type: "text", required: false },
 ] as const;
 
 type Status = "idle" | "sending" | "done" | "error";
